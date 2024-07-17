@@ -1,0 +1,50 @@
+{% extends "admin_home.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block content1 %}
+
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+<h4>Attendance Details</h4>
+<div class="content_bottom">
+ <div class="col-md-12 span_3">
+  <div class="bs-example1" data-example-id="contextual-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Status</th>
+          
+        </tr>
+      </thead>
+   
+       {% for i in v_c %}
+       <tbody>
+        <tr class="active">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ i.date }}</td>
+          <td>{{ i.status }}</td>
+         
+        </tr>
+       </tbody>
+   {% endfor %}
+     
+    </table>
+   </div>
+ </div>
+
+<div class="clearfix"> </div>
+  </div>
+
+{% endblock %}
+
+

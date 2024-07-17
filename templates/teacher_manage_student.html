@@ -1,0 +1,283 @@
+{% extends "admin_home.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block content1 %}
+<script src="
+https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='fname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='passw']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+        $("input[name='uname']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+
+    });
+
+    
+
+    function checkAge() {
+        // Get the user's date of birth from the form
+        let dob = new Date(document.getElementById("dob").value);
+        let today = new Date();
+
+        // Calculate the user's age
+        let age = today.getFullYear() - dob.getFullYear();
+        let m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+
+        // Check if the user is at least 5 years old
+        if (age < 5) {
+            document.getElementById("msg").innerHTML="Student must be at least 5 years old to add this site."
+            // alert("You must be at least 5 years old to use this site.");
+            document.getElementById("dob").value = ""; // Clear the input field
+        }
+    }
+
+
+    function checkDoa() {
+        // Get the user's date of birth from the form
+        let dob = document.getElementById("dob").value;
+        let doa = document.getElementById("doa").value;
+       
+
+        // Check if the user is at least 5 years old
+        if (dob == doa) {
+            document.getElementById("msg1").innerHTML="Date of Birth and Date of Admission Must be Different"
+            // alert("You must be at least 5 years old to use this site.");
+            document.getElementById("doa").value = ""; // Clear the input field
+        }
+        else if (dob > doa) {
+            document.getElementById("msg1").innerHTML="Date of Admission Must be Greater than Date of Birth"
+            // alert("You must be at least 5 years old to use this site.");
+            document.getElementById("doa").value = ""; // Clear the input field
+        }
+    }
+</script>
+
+
+<div class="card"  style="background-color: #fff;padding: 20px;">
+
+ 
+<h4>Add Student Details</h4><br>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {%if obj1%}
+    <table class="table" style="width: 600px;">
+        <tr>
+            <th>First Name</th>
+            <td><input type="text" required class="form-control1" name="fname" id="" value="{{obj1.fname}}"></td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td><input type="text" required class="form-control1" name="lname" id="" value="{{obj1.lname}}"></td>
+        </tr>
+        <tr>
+            <th>Place Name</th>
+            <td><input type="text"  required class="form-control1" name="place" id="" value="{{obj1.place}}"></td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td><input type="text" required min="0" minlength="10" maxlength="10" class="form-control1" name="phone" id="" value="{{obj1.phone}}"></td>
+        </tr>
+        <tr>
+            <th>Date of Birth</th>
+            <td><input type="date" required class="form-control1" name="dob" id="dob"  onchange="checkAge()" value="{{obj1.dob}}">
+                <span id="msg" style="color: red;"></span></td>
+        </tr>
+        <tr>
+            <th>Date of Admission</th>
+            <td><input type="date" required class="form-control1" name="doa" id="doa" onchange="checkDoa()" value="{{obj1.doa}}">
+                <span id="msg1" style="color: red;"></span></td>
+        </tr>
+        <tr>
+            <th>Academic Year</th>
+            <td><input type="text" name="ac_year" required class="form-control1" value="{{obj1.academic_year}}"></td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" class="btn btn-primary" name="update"  value="Edit"></td>
+        </tr>
+       
+    </table>
+    {%else%}
+        <table class="table" style="width: 600px;">
+            <tr>
+                <th>Class </th>
+                <td><select name="class_id" id=""  class="form-control1">
+                    {% for i in v_c %}
+                    <option value="{{ i.class_id }}">{{ i.class_det }}</option>
+                    {% endfor %}
+                </select></td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <td><input type="text" required class="form-control1" name="fname" id=""></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td><input type="text" required class="form-control1" name="lname" id=""></td>
+            </tr>
+            <tr>
+                <th>Place Name</th>
+                <td><input type="text"  required class="form-control1" name="place" id=""></td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td><input type="text" required min="0" minlength="10" maxlength="10" class="form-control1" name="phone" id=""></td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td><input type="date" required class="form-control1" name="dob" id="dob"  onchange="checkAge()" >
+                <span id="msg" style="color: red;"></span></td>
+            </tr>
+            <tr>
+                <th>Date of Admission</th>
+                <td><input type="date" required class="form-control1" name="doa" onchange="checkDoa()" id="doa">
+                    <span id="msg1" style="color: red;"></span></td>
+            </tr>
+            <tr>
+                <th>Academic Year</th>
+                <td><input type="text" name="ac_year" required class="form-control1"></td>
+            </tr>
+            <tr>
+                <th>Userame</th>
+                <td><input type="text" required class="form-control1" name="uname" id=""></td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td><input type="password" required class="form-control1" name="passw" id=""></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" class="btn btn-primary" name="add_tc"  value="Add"></td>
+            </tr>
+           
+        </table>
+        {%endif%}
+    </form>
+    
+
+</div>
+
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="content_bottom">
+ <div class="col-md-12 span_3">
+  <div class="bs-example1" data-example-id="contextual-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th>#</th>
+            <th>Class</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Place Name</th>
+            <th>Phone</th>
+            <th>Date of Admission</th>
+            <th>Date of Birth</th>
+            <th>Academic Year</th>
+            <!-- <th>Email</th> -->
+        </tr>
+      </thead>
+   
+       {% for i in v_t %}
+       <tbody>
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.class_det.class_det }}</td>
+            <td>{{ i.fname }}</td>
+            <td>{{ i.lname }}</td>
+
+            <td>{{ i.place }}</td>
+            <td>{{ i.phone }}</td>
+            <td>{{i.doa}}</td>
+            <td>{{i.dob}}</td>
+            <td>{{i.academic_year}}</td>
+            <!-- <td>{{ i.email }}</td> -->
+            <td><a href="/admin_add_student_fee/{{ i.student_id }}">Add Fee</a></td>
+            <!-- <td><a href="/admin_view_student_report/{{ i.student_id }}">Report</a></td> -->
+            <td><a href="/admin_view_student_attendance/{{ i.student_id }}">Attendance</a></td>
+            <td><a href="/admin_edit_students/{{ i.student_id }}">Edit</a></td>
+            <td><a href="/admin_delete_student/{{ i.student_id }}">Delete</a></td>
+        </tr>
+       </tbody>
+   {% endfor %}
+     
+    </table>
+
+   
+
+
+   </div>
+ </div>
+
+<div class="clearfix"> </div>
+  </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

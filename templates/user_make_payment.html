@@ -1,0 +1,121 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends "student_home.html" %}
+{% load static %}
+
+{% block banner_content %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block view %}
+<!-- index-block2 -->
+<section class="w3l-index2 py-5" id="view">
+   <div class="container py-md-3">
+     <div class="header-section text-center mx-auto">
+       <h3>PAYMENT DETAILS </h3>
+      
+     </div>
+    
+     
+        
+          <center>
+          <div class="appointment-form center p-4"  style="background-color: bisque;width: 600px; ">
+            <h4 style="color: #2caee2;">Complete your Payment Details</h4>
+            <table style="width: 10cm; border-radius: 5px;" class="table table-borderless" id="b"> 
+              <tr> 
+                  <td>PAYMENT DETAILS</td> 
+                  <td colspan="2" align="right"><img src="/static/assets/images/Razorpay.png" style="width:70%"></td>
+              </tr>  
+              <tr> 
+                  <td colspan="2"> <small>Amount</small><br> 
+                      <input type="text"  value="{{total}}" readonly id="tt" class="form-control" required >
+                      <input type="hidden"  value="{{id}}" id="id" class="form-control" required >
+      
+                  </td> 
+              <tr> 
+                  <td> 
+                      <!-- {% comment %} <input type="submit" value="PAY"  class="btn btn-success" style="width: 100%" name="pay"> {% endcomment %} -->
+                      {% csrf_token %}
+       
+                      <a id="rzp-button1" href="{% url 'rpay' %}" class="btn btn-info " type="submit" style="width: 200px;" >RazorPay - Place Order</a>
+      
+      
+                  </td>
+              </tr>
+          </table>
+
+    
+        </center>
+          </div>
+        
+
+ </section>
+ 
+
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        
+        <script>
+        
+        var id = document.getElementById("id").value
+        var tt = document.getElementById("tt").value
+        var options = {
+           "key": "rzp_test_en0h6KvoyFSgNJ", // Enter the Key ID generated from the Dashboard
+           "amount": tt*100,  // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+           "currency": "INR",
+           "name": "School Management",
+           "description": "School Management",
+           "id": id,
+           "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+           "handler": function (response) {
+        
+              //  window.location.href = `http://127.0.0.1:8000/user_payment_complete/${id}` 
+               window.location.href = `http://127.0.0.1:8000/user_payment_complete` 
+              alert(response.razorpay_payment_id);
+              $.ajax({
+                 method: 'GET',
+                 url:'/rpay',
+                 
+              });
+           },
+           "theme": {
+              "color": "#3399cc"
+           }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+          //  alert(response.error.code);
+          //  alert(response.error.description);
+          //  alert(response.error.source);
+          //  alert(response.error.step);
+          //  alert(response.error.reason);
+          //  alert(response.error.metadata.order_id);
+          //  alert(response.error.metadata.payment_id);
+        });
+        document.getElementById('rzp-button1').onclick = function (e) {
+           rzp1.open();
+           e.preventDefault();
+        }
+        </script>
+
+
+{% endblock %}

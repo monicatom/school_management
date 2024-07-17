@@ -1,0 +1,40 @@
+{% extends "student_home.html" %}
+{% load static %}
+
+{% block banner_content %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block view %}
+<!-- index-block2 -->
+<section class="w3l-index2 py-5" id="view">
+   <div class="container py-md-3">
+     <div class="header-section text-center mx-auto">
+       <h3>Attendance Details </h3>
+      
+     </div>
+     <div class="row bottom_grids pt-md-3 text-center">
+       {% for i in v_t %}
+       <div class="col-lg-4 col-md-6 mt-5">
+         <div class="s-block p-3">
+           <!-- {% comment %} <a href="/static/media/{{ i.image }}" class="d-block p-lg-4 p-3">
+             <img src="/static/media/{{ i.image }}" alt="" class="img-fluid img-curve" />
+            </a> {% endcomment %} -->
+             <h4>Date : {{ i.date }}</h4>
+             <p class="">Status : {{ i.status }}</p>
+         </div>
+       </div>
+       {% endfor %}
+       
+     </div>
+   </div>
+ </section>
+ 
+
+
+{% endblock %}

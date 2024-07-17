@@ -1,0 +1,63 @@
+{% extends "student_home.html" %}
+{% load static %}
+
+{% block banner_content %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block view %}
+<!-- index-block2 -->
+<section class="w3l-index2 py-5" id="view">
+   <div class="container py-md-3">
+     <div class="header-section text-center mx-auto">
+       <h3>Timetable Details </h3>
+      
+     </div>
+     <div class="row bottom_grids pt-md-3 text-center">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+              <th>#</th>
+              <th>Class</th>
+              <th>Day</th>
+              <th>Subject 1</th>
+              <th>Subject 2</th>
+              <th>Subject 3</th>
+              <th>Subject 4</th>
+              <th>Subject 5</th>
+          </tr>
+        </thead>
+     
+         {% for i in v_t %}
+         <tbody>
+          <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ i.class_det.class_det }}</td>
+              <td>{{i.day}}</td>
+              <td>{{i.p1_id}}</td>
+              <td>{{i.p2_id}}</td>
+              <td>{{i.p3_id}}</td>
+              <td>{{i.p4_id}}</td>
+              <td>{{i.p5_id}}</td>
+             
+             
+          </tr>
+         </tbody>
+     {% endfor %}
+       
+      </table>
+       
+     </div>
+   </div>
+ </section>
+ 
+
+
+{% endblock %}
+
+    

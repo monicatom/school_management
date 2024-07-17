@@ -1,0 +1,92 @@
+{% extends "teacher_home.html" %}
+{% load static %}
+
+{% block banner_content %}
+
+
+<h4>Add Note Details</h4><br>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <table>
+           
+          <tr>
+            <th>Class</th>
+            <td>
+              <select name="cls_id"  required  class="form-control">
+                {% for i in cls %}
+                <option value="{{ i.class_det.class_id }}">{{ i.class_det.class_det }}</option>
+                {% endfor %}
+              </select></td>
+        </tr>
+         
+          <tr>
+            <th>Subject</th>
+            <td>
+              <select name="sub"  required  class="form-control">
+                {% for i in subj %}
+                <option value="{{ i.subject_name }}">{{ i.subject_name }}</option>
+                {% endfor %}
+              </select></td>
+        </tr>
+           
+            <tr>
+                <th>Note Title</th>
+                <td><input type="text" name="det" class="form-control"></td>
+            </tr>
+
+            <tr>
+              <th>Note File</th>
+              <td><input type="file" name="image" class="form-control" accept="application/pdf"></td>
+          </tr>
+           
+
+            <tr>
+                <td><input type="submit" class="btn btn-primary" name="add_note"  value="Add"></td>
+            </tr>
+           
+        </table>
+    </form>
+    
+
+{% endblock %}
+
+
+
+
+
+{% block view %}
+<!-- index-block2 -->
+<section class="w3l-index2 py-5" id="view">
+   <div class="container py-md-3">
+     <div class="header-section text-center mx-auto">
+       <h3>Note Details </h3>
+      
+     </div>
+     <div class="row bottom_grids pt-md-3 text-center">
+       {% for i in v_t %}
+       <div class="col-lg-4 col-md-6 mt-5">
+         <div class="s-block">
+           <a href="#view" class="d-block p-lg-4 p-3">
+             <!-- <img src="{% static '/assets/images/s1.png' %}" alt="" class="img-fluid img-curve" /> -->
+             
+             
+             <h4>Subject : {{ i.subject }}</h4>
+             <p class="">Title : {{ i.notes }}</p>
+             <a href="/static/media/{{i.file}}">View File</a> | 
+             <a href="/static/media/{{i.file}}" download>Download</a>
+
+             <p class="">Date : {{ i.date }}</p>
+           </a>
+         </div>
+       </div>
+       {% endfor %}
+       
+     </div>
+   </div>
+ </section>
+ 
+
+
+{% endblock %}
+
+   

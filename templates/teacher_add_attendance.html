@@ -1,0 +1,106 @@
+{% extends "teacher_home.html" %}
+{% load static %}
+
+{% block banner_content %}
+
+
+<h4>Add Attendance</h4><br>
+<form action="" method="post">
+    {% csrf_token %}
+        <table>
+           
+          <tr>
+            <th>Class</th>
+            <td>
+              <select name="cls_id" id="" class="form-control">
+                {% for i in assi %}
+                <option value="{{ i.class_det.class_id }}">{{ i.class_det.class_det }}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="submit" name="v_st" class="btn btn-primary" value="View" id=""></td>
+          </tr>
+
+            <tr>
+                <th>Students : </th>
+                <td><select name="student_id" id="" class="form-control">
+                    {% for i in v_t %}
+                    <option value="{{ i.student_id }}">{{ i.fname }} {{ i.lname }}</option>
+                    {% endfor %}
+                </select></td>
+            </tr>
+           
+            <tr>
+                <th>Status : </th>
+                <td><input type="radio" name="att" value="Present" id="">&nbsp;Present &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="att" value="Absent" id="">&nbsp;Absent</td>
+            </tr>
+           
+
+            <tr>
+                <td><input type="submit" class="btn btn-primary" name="add_att"  value="Add"></td>
+            </tr>
+           
+        </table>
+    </form>
+    
+
+{% endblock %}
+
+
+
+
+
+{% block view %}
+<!-- index-block2 -->
+<section class="w3l-index2 py-5" id="view">
+   <div class="container py-md-3">
+     <div class="header-section text-center mx-auto">
+       <h3>Attendance Details </h3>
+
+    
+       <form action="" method="post">
+        {% csrf_token %}
+        <table>
+          <tr> 
+            <td>
+              <select name="cls_id" id="" class="form-control">
+                <option value="1">-- Select Class -- </option>
+                {% for i in assi %}
+                <option value="{{ i.class_det.class_id }}">{{ i.class_det.class_det }}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td><input type="submit" name="v_st" class="btn btn-primary" value="View" id=""></td>
+        </tr>
+       </table>
+      </form>
+
+     </div>
+     <div class="row bottom_grids pt-md-3 text-center">
+       {% for i in a_t %}
+       <div class="col-lg-4 col-md-6 mt-5">
+         <div class="s-block">
+           <a href="#view" class="d-block p-lg-4 p-3">
+             <!-- <img src="{% static '/assets/images/s1.png' %}" alt="" class="img-fluid img-curve" /> -->
+             
+             
+             <h4>Student : {{ i.student.fname }} {{ i.student.lname }}</h4>
+             <p class="">Date : {{ i.date }}</p>
+             <p class="">Status : {{ i.status }}</p>
+           </a>
+         </div>
+       </div>
+       {% endfor %}
+       
+     </div>
+   </div>
+ </section>
+ 
+
+
+{% endblock %}
+
+   

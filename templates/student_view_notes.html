@@ -1,0 +1,48 @@
+{% extends "student_home.html" %}
+{% load static %}
+
+{% block banner_content %}
+
+
+
+{% endblock %}
+
+
+
+
+
+{% block view %}
+<!-- index-block2 -->
+<section class="w3l-index2 py-5" id="view">
+   <div class="container py-md-3">
+     <div class="header-section text-center mx-auto">
+       <h3>Note Details </h3>
+      
+     </div>
+     <div class="row bottom_grids pt-md-3 text-center">
+       {% for i in v_t %}
+       <div class="col-lg-4 col-md-6 mt-5">
+         <div class="s-block">
+           <a href="#view" class="d-block p-lg-4 p-3">
+             <!-- <img src="{% static '/assets/images/s1.png' %}" alt="" class="img-fluid img-curve" /> -->
+             
+             
+             <h4>Subject : {{ i.subject }}</h4>
+             <p class="">Title : {{ i.notes }}</p>
+             <a href="/static/media/{{i.file}}">View File</a> | 
+             <a href="/static/media/{{i.file}}" download>Download</a>
+             <p class="">Date : {{ i.date }}</p>
+           </a>
+         </div>
+       </div>
+       {% endfor %}
+       
+     </div>
+   </div>
+ </section>
+ 
+
+
+{% endblock %}
+
+   

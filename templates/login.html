@@ -1,0 +1,36 @@
+ {% extends "index.html" %} 
+
+ {% block banner_content %}
+<div class="container">
+      
+    <div class="col-lg-9 align-self-center">
+        
+      <form id="contact" action="" method="post" style="margin-left: 0px;margin-top: -70px;">
+        {% csrf_token %}
+        <h3 style="color: brown;">Sign In</h3> <br>
+        <div class="row">
+          <div class="col-lg-12">
+            <fieldset>
+              <input type="name" name="uname" required class="form-control" id="name" placeholder="Username" autocomplete="on" required>
+            </fieldset>
+            <br>
+          </div>
+          
+          <div class="col-lg-12">
+            <fieldset>
+              <input type="password" name="passw" required class="form-control" id="surname" placeholder="Password" autocomplete="on" required>
+            </fieldset>
+            <br>
+          </div>
+        
+          <div class="col-lg-12">
+            <fieldset>
+              <button type="submit" id="form-submit"  name="login" class="btn btn-primary theme-button">Sign in</button>
+            </fieldset>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% endblock %}

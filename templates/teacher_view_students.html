@@ -1,0 +1,89 @@
+{% extends "teacher_home.html" %}
+{% load static %}
+
+{% block banner_content %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block view %}
+<!-- index-block2 -->
+<section class="w3l-index2 py-5" id="view">
+   <div class="container py-md-3">
+     <div class="header-section text-center mx-auto">
+       <h3>Student Details </h3>
+       
+
+       <form action="#view" method="post">
+        {% csrf_token %}
+        <table>
+          <tr> 
+            <td>
+              <select name="cls_id" id="" class="form-control">
+                <option value="1">-- Select Class -- </option>
+                {% for i in cls %}
+                <option value="{{ i.pk }}">{{ i.class_det }}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td><input type="submit" name="v_st" class="btn btn-primary" value="View" id=""></td>
+        </tr>
+       </table>
+      </form>
+      
+      
+     </div>
+     <div class="row bottom_grids pt-md-3 text-center">
+       {% for i in v_t %}
+       <div class="col-lg-4 col-md-6 mt-5">
+         <div class="s-block p-3">
+           <!-- <a href="#view" class="d-block p-lg-4 p-3"> -->
+             <!-- <img src="{% static '/assets/images/s1.png' %}" alt="" class="img-fluid img-curve" /> -->
+             
+             
+             <h4>Student Name : {{ i.fname }} {{ i.lname }}</h4>
+             <p class="">Class : {{ i.class_det.class_det }}</p>
+             <p class="">Place : {{ i.place }}</p>
+             <p class="">Phone : {{ i.phone }}</p>
+          
+              <p><a href="/teacher_add_result/{{ i.student_id }}">Result</a></p>
+           <!-- </a> -->
+         </div>
+       </div>
+       {% endfor %}
+       
+     </div>
+   </div>
+ </section>
+ 
+
+
+{% endblock %}
+
+    <!-- <table>
+        <tr>
+            <th>#</th>
+            <th>Class</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Place Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+        </tr>
+        {% for i in v_t %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.class_det.class_det }}</td>
+            <td>{{ i.fname }}</td>
+            <td>{{ i.lname }}</td>
+
+            <td>{{ i.place }}</td>
+            <td>{{ i.phone }}</td>
+            <td>{{ i.email }}</td>
+        </tr>
+        {% endfor %}
+    </table> -->

@@ -1,0 +1,46 @@
+{% extends "student_home.html" %}
+{% load static %}
+
+{% block banner_content %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block view %}
+<!-- index-block2 -->
+<section class="w3l-index2 py-5" id="view">
+   <div class="container py-md-3">
+     <div class="header-section text-center mx-auto">
+       <h3>Fees Details </h3>
+      
+     </div>
+     <div class="row bottom_grids pt-md-3 text-center">
+       {% for i in v_t %}
+       <div class="col-lg-4 col-md-6 mt-5 ">
+         <div class="s-block p-2">
+           {% comment %} <a href="/static/media/{{ i.image }}" class="d-block p-lg-4 p-3">
+             <img src="/static/media/{{ i.image }}" alt="" class="img-fluid img-curve" />
+            </a> {% endcomment %}
+             <h4>Fees For : {{ i.fees_title }}</h4>
+             <p style="color: red;font-weight: 800;">Fees : {{ i.fees }}/-</p>
+             <p style="color: rgb(0, 0, 0);font-weight: 800;">Date : {{ i.date }}</p>
+             {% if i.status == "Pending" %}
+             <a href="/user_make_payment/{{i.fee_id}}/{{ i.fees }}" class="btn btn-danger" style="color: rgb(255, 255, 255);font-weight: 800;">Make Payment</a>
+             {% else %}
+             <p style="color: rgb(25, 110, 3);font-weight: 800;">Fees Status : {{ i.status }}</p>
+             {% endif %}
+         </div>
+       </div>
+       {% endfor %}
+       
+     </div>
+   </div>
+ </section>
+ 
+
+
+{% endblock %}

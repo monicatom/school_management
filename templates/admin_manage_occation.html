@@ -1,0 +1,102 @@
+{% extends "admin_home.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block content1 %}
+
+
+
+<div class="card"  style="background-color: #fff;padding: 20px;">
+
+  <h4>Add Occation Details</h4><br>
+  <form action="" method="post">
+      {% csrf_token %}
+      {% if obj%}
+      <table class="table" style="width: 800px;">
+        <tr>
+            <th>Occation</th>
+            <td><input type="text" required class="form-control1" name="occation" id="" value="{{obj.occation_det}}"></td>
+        </tr>
+        <tr>
+          <th>Occation Date</th>
+          <td><input type="date" name="date" min="{{dd}}" required class="form-control1" value="{{obj.occation_date}}"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="btn btn-primary " name="update"  value="Edit"></td>
+        </tr>
+       
+    </table>
+      {%else%}
+          <table class="table" style="width: 800px;">
+              <tr>
+                  <th>Occation</th>
+                  <td><input type="text" required class="form-control1" name="occation" id=""></td>
+              </tr>
+              <tr>
+                <th>Occation Date</th>
+                <td><input type="date" name="date" min="{{dd}}" class="form-control1"></td>
+              </tr>
+              <tr>
+                  <td><input type="submit" class="btn btn-primary " name="add_occation"  value="Add"></td>
+              </tr>
+             
+          </table>
+          {%endif%}
+      </form>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="content_bottom">
+ <div class="col-md-12 span_3">
+  <div class="bs-example1" data-example-id="contextual-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Occation Details</th>
+          <th>Occation Date</th>
+          <th>Edit</th>
+          
+        </tr>
+      </thead>
+   
+       {% for i in v_c %}
+       <tbody>
+        <tr class="active">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ i.occation_det }}</td>
+          <td>{{ i.occation_date }}</td>
+          <td><a href="/admin_edit_occasion/{{i.occation_id}}">Edit</a></td>
+          <td><a href="/admin_delete_occasion/{{i.occation_id}}">Delete</a></td>
+         
+        </tr>
+       </tbody>
+   {% endfor %}
+     
+    </table>
+   </div>
+ </div>
+
+<div class="clearfix"> </div>
+  </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

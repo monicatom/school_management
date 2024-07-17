@@ -1,0 +1,85 @@
+{% extends "admin_home.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block content1 %}
+
+
+
+<div class="card"  style="background-color: #fff;padding: 20px;">
+
+ <form action="" method="post">
+   {% csrf_token %}
+   <h4>Manage Expense Details</h4><br>
+       <table class="table" style="width: 800px;">
+           <tr>
+               <th>Expense Title : </th>
+               <td><input type="text" required class="form-control1 input-lg" name="exptitle"  value="{%if ed_expp%} {{ed_expp.expense_title}} {%endif%}"></td>
+           </tr>
+           <tr>
+             <th>Expense Amount : </th>
+             <td><input type="text" required class="form-control1 input-lg" name="amount" value="{%if ed_expp%} {{ed_expp.expense_amount}} {%endif%}"></td>
+           </tr>
+           {%if ed_expp%}
+           <tr>
+             <td align="center" colspan="2"><input type="submit" name="update_exp" value="Update" class="btn btn-warning "></td>
+           </tr>
+           {%else%}
+           <tr>
+             
+               <td colspan="2" align="center" ><input type="submit" class="btn btn-primary " name="add_exp"  value="Add"></td>
+           </tr>
+           {%endif%}
+          
+       </table>
+   </form>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="content_bottom">
+ <div class="col-md-12 span_3">
+  <div class="bs-example1" data-example-id="contextual-table">
+    <h2>Total Expense : {{ texp }}/-</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Expense Title </th>
+          <th>Expense Amount</th>
+          <th>Date</th>
+          
+        </tr>
+      </thead>
+   
+       {% for i in expp %}
+       <tbody>
+        <tr class="active">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ i.expense_title }}</td>
+          <td>{{i.expense_amount}}/-</td>
+          <td>{{i.expense_date}}</td>
+          <td><a href="/admin_edit_exp/{{i.pk}}" class="btn btn-warning">Edit</a></td>
+          <td><a href="/admin_delete_exp/{{i.pk}}" class="btn btn-danger">Delete</a></td> 
+        </tr>
+       </tbody>
+   {% endfor %}
+     
+    </table>
+   </div>
+ </div>
+
+<div class="clearfix"> </div>
+  </div>
+
+{% endblock %}
+
+

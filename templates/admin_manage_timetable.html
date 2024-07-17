@@ -1,0 +1,234 @@
+{% extends "admin_home.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block content1 %}
+
+
+
+<div class="card"  style="background-color: #fff;padding: 20px;">
+
+ 
+<h4>Add Timetable Details</h4><br>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if et_time %}
+    <table class="table" style="width: 600px;">
+        <tr>
+            <th>Class </th>
+            <td><select name="class_id" id="" class="form-control1">
+                <option value="{{ et_time.class_det_id }}">{{ et_time.class_det.class_det }}</option>
+                {% for i in v_c %}
+                <option value="{{ i.class_id }}">{{ i.class_det }}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+        <tr>
+            <th>Day</th>
+            <td><select name="day" id="">
+                <option value="{{ et_time.day }}">{{ et_time.day }}</option>
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+            </select></td>
+        </tr>
+        <tr>
+            <th>First subject</th>
+            <td><select name="sub1" id="">
+                <option value="{{ et_time.p1_id }}">{{ et_time.p1_id }}</option>
+                {%for row in subs%}
+                <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                {%endfor%}
+            </select></td>
+        </tr>
+        <tr>
+            <th>Second subject</th>
+            <td><select name="sub2" id="">
+                <option value="{{ et_time.p2_id }}">{{ et_time.p2_id }}</option>
+                {%for row in subs%}
+                <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                {%endfor%}
+            </select></td>
+        </tr>
+        <tr>
+            <th>Third subject</th>
+            <td><select name="sub3" id="">
+                <option value="{{ et_time.p3_id }}">{{ et_time.p3_id }}</option>
+                {%for row in subs%}
+                <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                {%endfor%}
+            </select></td>
+        </tr>
+        <tr>
+            <th>Fourth subject</th>
+            <td><select name="sub4" id="">
+                <option value="{{ et_time.p4_id }}">{{ et_time.p4_id }}</option>
+                {%for row in subs%}
+                <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                {%endfor%}
+            </select></td>
+        </tr>
+        <tr>
+            <th>Fifth subject</th>
+            <td><select name="sub5" id="">
+                <option value="{{ et_time.p5_id }}">{{ et_time.p5_id }}</option>
+                {%for row in subs%}
+                <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                {%endfor%}
+            </select></td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" class="btn btn-primary" name="edit_time"  value="Save Changes"></td>
+        </tr>
+       
+    </table>
+    {%else%}
+        <table class="table" style="width: 600px;">
+            <tr>
+                <th>Class </th>
+                <td><select name="class_id" id="" class="form-control1">
+                    {% for i in v_c %}
+                    <option value="{{ i.class_id }}">{{ i.class_det }}</option>
+                    {% endfor %}
+                </select></td>
+            </tr>
+            <tr>
+                <th>Day</th>
+                <td><select name="day" id="">
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thursday</option>
+                    <option value="friday">Friday</option>
+                </select></td>
+            </tr>
+            <tr>
+                <th>First subject</th>
+                <td><select name="sub1" id="">
+                    {%for row in subs%}
+                    <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                    {%endfor%}
+                </select></td>
+            </tr>
+            <tr>
+                <th>Second subject</th>
+                <td><select name="sub2" id="">
+                    {%for row in subs%}
+                    <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                    {%endfor%}
+                </select></td>
+            </tr>
+            <tr>
+                <th>Third subject</th>
+                <td><select name="sub3" id="">
+                    {%for row in subs%}
+                    <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                    {%endfor%}
+                </select></td>
+            </tr>
+            <tr>
+                <th>Fourth subject</th>
+                <td><select name="sub4" id="">
+                    {%for row in subs%}
+                    <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                    {%endfor%}
+                </select></td>
+            </tr>
+            <tr>
+                <th>Fifth subject</th>
+                <td><select name="sub5" id="">
+                    {%for row in subs%}
+                    <option value="{{row.subject_name}}">{{row.subject_name}}</option>
+                    {%endfor%}
+                </select></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" class="btn btn-primary" name="add_time"  value="Add"></td>
+            </tr>
+           
+        </table>
+        {%endif%}
+    </form>
+    
+    
+
+</div>
+
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="content_bottom">
+ <div class="col-md-12 span_3">
+  <div class="bs-example1" data-example-id="contextual-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th>#</th>
+            <th>Class</th>
+            <th>Day</th>
+            <th>Subject 1</th>
+            <th>Subject 2</th>
+            <th>Subject 3</th>
+            <th>Subject 4</th>
+            <th>Subject 5</th>
+        </tr>
+      </thead>
+   
+       {% for i in v_t %}
+       <tbody>
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.class_det.class_det }}</td>
+            <td>{{i.day}}</td>
+            <td>{{i.p1_id}}</td>
+            <td>{{i.p2_id}}</td>
+            <td>{{i.p3_id}}</td>
+            <td>{{i.p4_id}}</td>
+            <td>{{i.p5_id}}</td>
+           
+            <td><a href="/admin_edit_timetable/{{i.timetable_id}}">Edit</a></td>
+           
+        </tr>
+       </tbody>
+   {% endfor %}
+     
+    </table>
+
+   
+
+
+   </div>
+ </div>
+
+<div class="clearfix"> </div>
+  </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

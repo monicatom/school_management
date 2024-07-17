@@ -1,0 +1,98 @@
+{% extends "admin_home.html" %}
+{% load static %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block content1 %}
+
+
+
+<script>
+  function validateInput(event) {
+    var inputValue = event.target.value;
+    var regex = /^[a-zA-Z]+$/;
+    if (!regex.test(inputValue)) {
+      event.target.value = inputValue.slice(0, -1);
+    }
+  }
+</script>
+<script>
+  function validatenumber(event) {
+var inputValue = event.target.value;
+var regex = /^\d{0,10}$/;
+if (!regex.test(inputValue)) {
+event.target.value = inputValue.slice(0, -1);
+}
+}
+</script>
+
+
+<div class="card"  style="background-color: #fff;padding: 20px;">
+
+ <form action="" method="post">
+   {% csrf_token %}
+   <h4>Add Fees Details</h4><br>
+       <table class="table" style="width: 800px;">
+          <tr>
+            <th>Fees For : </th>
+            <td><input type="text" required class="form-control1" oninput="validateInput(event)" name="fee_for" id=""></td>
+        </tr>
+           <tr>
+               <th>Fees Amount : </th>
+               <td><input type="number" min="0"  required class="form-control1" oninput="validatenumber(event)" name="fee" id=""></td>
+           </tr>
+           <tr>
+             
+               <td colspan="2" align="center" ><input type="submit" class="btn btn-primary " name="add_fee"  value="Add"></td>
+           </tr>
+          
+       </table>
+   </form>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="content_bottom">
+ <div class="col-md-12 span_3">
+  <div class="bs-example1" data-example-id="contextual-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fees For</th>
+          <th>Fees</th>
+          <th>Date</th>
+          <th>Status</th>
+          
+        </tr>
+      </thead>
+   
+       {% for i in v_c %}
+       <tbody>
+        <tr class="active">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ i.fees_title }}</td>
+          <td>{{ i.fees }}/-</td>
+          <td>{{ i.date }}</td>
+          <td {% if i.status == "Pending" %} style="color: red;font-weight: 800;" {% else %} style="color:green;font-weight: 800;" {% endif %} >{{ i.status }}</td> 
+        </tr>
+       </tbody>
+   {% endfor %}
+     
+    </table>
+   </div>
+ </div>
+
+<div class="clearfix"> </div>
+  </div>
+
+{% endblock %}
+
+
